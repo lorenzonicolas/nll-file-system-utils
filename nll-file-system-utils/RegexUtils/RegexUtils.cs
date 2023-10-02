@@ -91,21 +91,14 @@ namespace Regex
         {
             try
             {
-                var result = new SongInfo();
                 var match = RunRegex(fileName, songsRegex);
 
-                if (match.Success)
-                {
-                    result.TrackNumber = match.Groups[1].Value;
-                    result.Title = match.Groups[2].Value;
-                    result.Extension = match.Groups[3].Value;
-                }
-                else
+                if (!match.Success)
                 {
                     throw new FileInfoException("Couldn't match any valid file name");
                 }
 
-                return result;
+                return new SongInfo(match.Groups[3].Value, match.Groups[2].Value, match.Groups[1].Value);
             }
             catch (Exception ex)
             {
