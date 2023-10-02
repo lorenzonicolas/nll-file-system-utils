@@ -465,16 +465,16 @@ namespace Tests.FileSystemUtils
 
         private class MockFolder
         {
-            public string FolderName { get; set; }
-            public MockFolder FolderParent { get; set; }
-            public IList<MockFolder> ChildFolders { get; set; }
-            public IList<MockFile> Files { get; set; }
+            public required string FolderName { get; set ; }
+            public required MockFolder FolderParent { get; set; }
+            public required IList<MockFolder> ChildFolders { get; set; }
+            public required IList<MockFile> Files { get; set; }
         }
 
         private class MockFile
         {
-            public string FileName { get; set; }
-            public string FileFullName { get; set; }
+            public required string FileName { get; set; }
+            public required string FileFullName { get; set; }
         }
 
         private static List<IFileInfo> BuildAlbumFiles_WeirdImage()
