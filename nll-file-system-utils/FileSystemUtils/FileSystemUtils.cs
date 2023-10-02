@@ -220,7 +220,7 @@ namespace FileSystem
 
         public IList<IDirectoryInfo> GetFolderAlbums(string path)
         {
-            return FS.DirectoryInfo.FromDirectoryName(path)
+            return FS.DirectoryInfo.New(path)
                 .GetDirectories()
                 .Where(x => IsAlbumFolder(x))
                 .ToList();
@@ -235,7 +235,7 @@ namespace FileSystem
 
         public IDirectoryInfo[] GetFolderArtists(string mainFolder)
         {
-            return FS.DirectoryInfo.FromDirectoryName(mainFolder)
+            return FS.DirectoryInfo.New(mainFolder)
                 .GetDirectories()
                 .Where(x => IsArtistFolder(x))
                 .ToArray();
@@ -243,13 +243,13 @@ namespace FileSystem
 
         public bool IsFileLocked(string filename)
         {
-            var file = FS.FileInfo.FromFileName(filename);
+            var file = FS.FileInfo.New(filename);
 
             if (file.IsReadOnly) return true;
 
             try
             {
-                using var stream2 = FS.FileStream.Create(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                using var stream2 = FS.FileStream.New(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
             }
             catch (Exception)
             {
@@ -261,7 +261,7 @@ namespace FileSystem
 
         public void UnlockFile(string filename)
         {
-            var file = FS.FileInfo.FromFileName(filename);
+            var file = FS.FileInfo.New(filename);
 
             if (file.IsReadOnly)
             {
@@ -324,7 +324,7 @@ namespace FileSystem
             }
 
             FS.DirectoryInfo
-                .FromDirectoryName(source)
+                .New(source)
                 .MoveTo(fullDestination);
 
             return fullDestination;
@@ -332,7 +332,7 @@ namespace FileSystem
 
         public string CopyFolder(string source, string destinationDir)
         {
-            var sourceDirectory = FS.DirectoryInfo.FromDirectoryName(source);
+            var sourceDirectory = FS.DirectoryInfo.New(source);
             var lastPart = source.Split('\\').Last();
             var destinyFolder = $"{destinationDir}\\{lastPart}";
 
@@ -357,7 +357,7 @@ namespace FileSystem
 
         public string MoveProcessedFolder(string sourcePath, string outputPath)
         {
-            var dirInfo = FS.DirectoryInfo.FromDirectoryName(sourcePath);
+            var dirInfo = FS.DirectoryInfo.New(sourcePath);
 
             if(dirInfo == null || dirInfo.Parent == null)
             {
