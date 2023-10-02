@@ -19,7 +19,7 @@ namespace Tests.FileSystemUtils
         private readonly Mock<IDirectoryInfoFactory> directoryInfo = new();
         private readonly Mock<IFileInfoFactory> fileInfoFactory = new();
         private readonly Mock<IFile> file = new();
-        private IFileSystemUtils utils;
+        public required IFileSystemUtils utils;
         
         private static readonly Mock<IDirectoryInfo> mock = new();
         private Mock<IDirectoryInfo> normalAlbum = mock;
@@ -232,7 +232,7 @@ namespace Tests.FileSystemUtils
         public void GetFolderAlbums_string(FolderTestType folderType, int expected)
         {
             var folderToUse = GetObjectToUse(folderType);
-            directoryInfo.Setup(x => x.FromDirectoryName("path")).Returns(folderToUse);
+            directoryInfo.Setup(x => x.New("path")).Returns(folderToUse);
 
             var result = utils.GetFolderAlbums("path");
             Assert.That(result?.Count, Is.EqualTo(expected));
@@ -255,7 +255,7 @@ namespace Tests.FileSystemUtils
         public void GetFolderArtists_string(FolderTestType folderType, int expected)
         {
             var folderToUse = GetObjectToUse(folderType);
-            directoryInfo.Setup(x => x.FromDirectoryName("path")).Returns(folderToUse);
+            directoryInfo.Setup(x => x.New("path")).Returns(folderToUse);
 
             var result = utils.GetFolderArtists("path");
             Assert.That(result?.Length, Is.EqualTo(expected));
@@ -309,7 +309,7 @@ namespace Tests.FileSystemUtils
         {
             var file1 = new Mock<IFileInfo>();
             file1.Setup(f => f.IsReadOnly).Returns(isReadonlyAlready);
-            fileInfoFactory.Setup(f => f.FromFileName("fileName")).Returns(file1.Object);
+            fileInfoFactory.Setup(f => f.New("fileName")).Returns(file1.Object);
 
             utils.UnlockFile("fileName");
 
@@ -324,7 +324,7 @@ namespace Tests.FileSystemUtils
         public void MoveFolder(string source, string destiny, string expectedDestiny)
         {
             var mockedDir = new Mock<IDirectoryInfo>();
-            directoryInfo.Setup(x => x.FromDirectoryName(source)).Returns(mockedDir.Object);
+            directoryInfo.Setup(x => x.New(source)).Returns(mockedDir.Object);
 
             var result = utils.MoveFolder(source, destiny);
 
@@ -335,6 +335,7 @@ namespace Tests.FileSystemUtils
         [Test]
         public void SaveImageFile()
         {
+            // arrange
             var mockedImage = new List<byte>().ToArray();
             Mock<Stream> mockedStream = new();
             var outputPath = "somePath";
@@ -343,8 +344,10 @@ namespace Tests.FileSystemUtils
             fs.Setup(o => o.FileStream.Create(outputPath, FileMode.CreateNew)).Returns(mockedStream.Object);
             mockedStream.Setup(o => o.Write(mockedImage, 0, mockedImage.Length));
 
+            // act
             utils.SaveImageFile(normalAlbum.Object, mockedImage);
 
+            // assert
             path.Verify(p => p.Combine(normalAlbum.Object.FullName, "FRONT.jpg"), Times.Once);
             fs.Verify(o => o.FileStream.Create(outputPath, FileMode.CreateNew), Times.Once);
             mockedStream.Verify(o => o.Write(mockedImage, 0, mockedImage.Length), Times.Once);
@@ -355,7 +358,7 @@ namespace Tests.FileSystemUtils
         {
             var mockedDir = new Mock<IDirectoryInfo>();
             mockedDir.Setup(x => x.FullName).Returns(source);
-            directoryInfo.Setup(x => x.FromDirectoryName(source)).Returns(mockedDir.Object);
+            directoryInfo.Setup(x => x.New(source)).Returns(mockedDir.Object);
             directory.Setup(x => x.Exists(expectedDestiny)).Returns(true);
             mockedDir.Setup(x => x.GetDirectories()).Returns(new List<IDirectoryInfo>().ToArray());
 
