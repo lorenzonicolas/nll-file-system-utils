@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>nll_file_system_utils</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>NLL.FileSystemUtils</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Nicolas Lorenzo</Authors>
+    <Company>NLL</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>READMEPKG.md</PackageReadmeFile>
+    
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Abstractions" Version="19.2.69" />
+    <None Include="../README.md"/>
+    <None Include="../READMEPKG.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>
