@@ -80,11 +80,13 @@ namespace Tests.Regex
         public void GetFolderInformation_NoBand_Success(string folderName, int year, string album, string band)
         {
             var result = regexUtils.GetFolderInformation(folderName);
+            var expectedBand = band == null ? string.Empty : band;
+
             Assert.Multiple(() =>
             {
                 Assert.That(result.Year, Is.EqualTo(year.ToString()));
                 Assert.That(result.Album, Is.EqualTo(album));
-                Assert.That(result.Band, Is.EqualTo(band));
+                Assert.That(result.Band, Is.EqualTo(expectedBand));
             });
         }
 
@@ -99,11 +101,14 @@ namespace Tests.Regex
         public void GetFolderInformation_WithBand_Success(string folderName, int? year, string album, string band)
         {
             var result = regexUtils.GetFolderInformation(folderName);
+            var expectedYearStr = year.HasValue ? year.ToString() : string.Empty;
+            var expectedBand = band == null ? string.Empty : band;
+
             Assert.Multiple(() =>
             {
-                Assert.That(result.Year, Is.EqualTo(year?.ToString()));
+                Assert.That(result.Year, Is.EqualTo(expectedYearStr));
                 Assert.That(result.Album, Is.EqualTo(album));
-                Assert.That(result.Band, Is.EqualTo(band));
+                Assert.That(result.Band, Is.EqualTo(expectedBand));
             });
         }
 
@@ -114,9 +119,9 @@ namespace Tests.Regex
             var result = regexUtils.GetFolderInformation(folderName);
             Assert.Multiple(() =>
             {
-                Assert.That(result.Album, Is.Null);
-                Assert.That(result.Year, Is.Null);
-                Assert.That(result.Band, Is.Null);
+                Assert.That(result.Album, Is.Empty);
+                Assert.That(result.Year, Is.Empty);
+                Assert.That(result.Band, Is.Empty);
             });
         }
 
