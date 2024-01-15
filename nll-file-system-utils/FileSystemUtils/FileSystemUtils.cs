@@ -1,4 +1,5 @@
 ﻿using System.IO.Abstractions;
+using DTO;
 using Regex;
 
 namespace FileSystem
@@ -57,7 +58,9 @@ namespace FileSystem
                     .FirstOrDefault(x => CoverImageNames.Contains(x.Name.ToUpper()));
 
                 if (alreadyCreatedCover != null)
+                {
                     return alreadyCreatedCover;
+                }
                 
                 //Discard the system files (those albumart small shit)
                 folderImages = folderImages.Where(x => !x.Attributes.HasFlag(FileAttributes.System)).ToArray();
@@ -177,7 +180,10 @@ namespace FileSystem
 
             foreach (var CD in albumDiscs)
             {
-                if (GetFolderSongs(CD).Length > 0) return true;
+                if (GetFolderSongs(CD).Length > 0)
+                {
+                    return true;
+                }
             }
 
             return false;
@@ -195,9 +201,9 @@ namespace FileSystem
                     .First();
             }
 
-            return folder.GetFiles()
+            return folder?.GetFiles()
                     .Where(x => SongExtensions.Contains(x.Extension.ToLower()))
-                    .OrderBy(x=>x.Length)
+                    .OrderBy(x => x.Length)
                     .FirstOrDefault();
         }
 
@@ -245,7 +251,10 @@ namespace FileSystem
         {
             var file = FS.FileInfo.New(filename);
 
-            if (file.IsReadOnly) return true;
+            if (file.IsReadOnly)
+            {
+                return true;
+            }
 
             try
             {
@@ -271,7 +280,7 @@ namespace FileSystem
 
         public string? GetAlbumFolderName(IFileInfo file)
         {
-            string? albumFolderName = null;
+            string albumFolderName;
 
             if(file == null || file.Directory == null || file.Directory.Parent == null)
             {
@@ -287,8 +296,12 @@ namespace FileSystem
             {
                 albumFolderName = file.Directory.Name;
             }
+            else
+            {
+                return null;
+            }
 
-            return albumFolderName != null ? RegexUtils.GetFolderInformation(albumFolderName).Album : null;
+            return RegexUtils.GetFolderInformation(albumFolderName).Album;
         }
 
         public FolderType GetFolderType(IDirectoryInfo folder)
