@@ -1,4 +1,5 @@
 ﻿using System.IO.Abstractions;
+using DTO;
 using Regex;
 
 namespace FileSystem
