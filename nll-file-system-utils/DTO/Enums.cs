@@ -1,12 +1,15 @@
-public enum FolderType
+namespace DTO
 {
-    ArtistWithAlbums,
-    Album,
-    AlbumWithMultipleCDs
-}
+    public enum FolderType
+    {
+        ArtistWithAlbums,
+        Album,
+        AlbumWithMultipleCDs
+    }
 
-public enum AlbumType
-{
-    EP, FullAlbum, Demo, Split,
-    Single
+    public enum AlbumType
+    {
+        EP, FullAlbum, Demo, Split,
+        Single
+    }
 }
