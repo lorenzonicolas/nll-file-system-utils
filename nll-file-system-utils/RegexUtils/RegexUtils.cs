@@ -117,13 +117,13 @@ namespace Regex
             {
                 return System.Text.RegularExpressions.Regex.Match(input, regex, RegexOptions.None, _timeout);
             }
-            catch(RegexMatchTimeoutException timeoutEx)
+            catch(RegexMatchTimeoutException)
             {
-                throw timeoutEx;
+                throw;
             }
-            catch(ArgumentOutOfRangeException ex)
+            catch(ArgumentOutOfRangeException)
             {
-                throw ex;
+                throw;
             }
         }
 
