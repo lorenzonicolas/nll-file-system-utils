@@ -4,7 +4,8 @@ Repositorio que contiene funciones útiles de acceso a archivos y directorios en
 
 ### Como ejecutar
  - Build: `dotnet build`
- - Publish package: ``
+ - Set up local nuget: `dotnet nuget add source D:\Repositorios\packages --name "Local"`
+ - Publish package: `dotnet nuget push "**/Release/*.nupkg"`
 
 ### Testing y coverage report:
 
