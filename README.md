@@ -16,4 +16,4 @@ Repositorio que contiene funciones útiles de acceso a archivos y directorios en
 [ ] E2E tests
 [ ] Unit tests
 
-[![.Publish](https://github.com/lorenzonicolas/nll-file-system-utils/actions/workflows/publish.yml/badge.svg?branch=master)](https://github.com/lorenzonicolas/nll-file-system-utils/actions/workflows/publish.yml)
+[![Publish](https://github.com/lorenzonicolas/nll-file-system-utils/actions/workflows/publish.yml/badge.svg?branch=master)](https://github.com/lorenzonicolas/nll-file-system-utils/actions/workflows/publish.yml)
