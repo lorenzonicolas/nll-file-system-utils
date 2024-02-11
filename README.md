@@ -1,11 +1,10 @@
 # File System Utils
 Repositorio que contiene funciones útiles de acceso a archivos y directorios en Windows.
 
-
-### Como ejecutar
- - Build: `dotnet build`
+### Generar paquete local:
+ - Build and generate package: `dotnet build; dotnet publish; dotnet pack;`
  - Set up local nuget: `dotnet nuget add source D:\Repositorios\packages --name "Local"`
- - Publish package: `dotnet nuget push "**/Release/*.nupkg"`
+ - Publish package: `dotnet nuget push "**/Release/*.nupkg" --source "Local"`
 
 ### Testing y coverage report:
 

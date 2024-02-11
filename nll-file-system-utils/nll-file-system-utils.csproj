@@ -11,13 +11,12 @@
     <Company>NLL</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>READMEPKG.md</PackageReadmeFile>
-    
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.IO.Abstractions" Version="19.2.69" />
     <None Include="../README.md"/>
-    <None Include="../READMEPKG.md" Pack="true" PackagePath="\"/>
+    <None Include="../READMEPKG.md" Pack="true" PackagePath="."/>
   </ItemGroup>
 
 </Project>
