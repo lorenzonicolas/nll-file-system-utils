@@ -24,4 +24,4 @@ jobs:
     - name: Add nuget source
       run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/lorenzonicolas/index.json"
     - name: Publish
-      run: dotnet nuget push "**/Release/*.nupkg"
+      run: dotnet nuget push "bin/Release/*.nupkg"
